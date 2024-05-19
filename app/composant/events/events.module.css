@@ -1,0 +1,9 @@
+.contenaire {
+  width: 100vw;  /* Prend 100% de la largeur de la fenêtre */
+  height: 100vh; /* Prend 100% de la hauteur de la fenêtre */
+  display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: linear-gradient(to bottom, rgb(100,82,57), rgb(246,195,71));
+    /* rgb(246,195,71) */
+}
