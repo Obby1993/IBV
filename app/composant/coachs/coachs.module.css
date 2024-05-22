@@ -1,6 +1,6 @@
 .contener {
-  width: 100vw;  /* Prend 100% de la largeur de la fenêtre */
-  height: 100vh; /* Prend 100% de la hauteur de la fenêtre */
+  width: 100vw;
+  height: 100vh;
   display: flex;
   justify-content: space-around;
   align-items: center;

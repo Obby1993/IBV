@@ -15,10 +15,10 @@ interface TypeCoachData {
 export default function Coach({coachData}: { coachData: TypeCoachData }) {
   return (
     <div className="hero place-items-start  " key={coachData.id}>
+                  <h1 className="titre" >{coachData.name}</h1>
             <div className="hero-content flex-col lg:flex-row" >
                 <img src={coachData.picture} className=" rounded-lg shadow-2xl" style={{ width: '205x',height:'350px' }} />
                 <div style={{ width: '60%', height:'350px' }}>
-                  <h1 className="text-5xl font-bold" >{coachData.name}</h1>
                   <p className="py-6 text-white">{coachData.devise}</p>
                   <h2 style={{textDecoration: 'underline', color:'white', fontWeight:'bolder'}}>Palmarès:</h2>
                   <ul>

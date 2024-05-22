@@ -6,7 +6,7 @@ type Props = {};
 
 export default function Coachs({}: Props) {
   return (
-  <div className={style.contener}>
+  <div className={style.contener} id="section2">
     {coachesData.map((coach) => (
     <Coach key={coach.id} coachData={coach} />
   ))}
