@@ -31,3 +31,9 @@ body {
     text-wrap: balance;
   }
 }
+.titre {
+  color: #FDA63A;
+  font-size:50px;
+  font-weight: 500;
+  font-family: emoji;
+}

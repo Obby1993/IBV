@@ -18,10 +18,23 @@ model Event {
   name               String
   dateStart          DateTime
   dateEnd            DateTime
-  location           String
+  location           Address?
   description        String
   numberPlaceMen     Int
   numberPlaceWomen   Int
   autre              String
   players            Json
+}
+
+model User {
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  email   String   @unique
+  name    String?
+}
+
+type Address {
+  street String
+  city   String
+  state  String
+  zip    String
 }
