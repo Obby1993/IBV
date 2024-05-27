@@ -22,10 +22,10 @@
       { "year": 2023, "achievement": "Champion du Monde Militaire" },
       { "year": 2023, "achievement": "Ranking : Top 50 mondial" },
       { "year": 2023, "achievement": "3ème place au WorldTour de Satun" },
-      { "year": 2022, "achievement": "2ème place au WorldTour de Den Hague" }
+      { "year": 2022, "achievement": "2ème place au WorldTour de la Haye" }
 
     ],
-    "picture": "/images/profile_sam.jpg",
-    "devise": "Le beach-volley offre une multitude de techniques et de gestuelles à explorer ! En discutant, en découvrant et en testant différentes approches, vous pouvez créer votre propre style de jeu unique."
+    "picture": "/images/sam_portrait.jpg",
+    "devise": "Le beach-volley offre une multitude de techniques et de gestuelles à explorer ! En découvrant et en testant différentes approches, vous pouvez créer votre propre style de jeu."
   }
 ]

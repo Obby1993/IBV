@@ -1,9 +1,6 @@
 .contenaire {
-  width: 100vw;
+  /* width: 100vw; */
   height: 100vh;
-  display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background: linear-gradient(to bottom, rgb(100,82,57), rgb(246,195,71));
+  background: linear-gradient(to bottom, rgb(100,82,57) 80%, rgb(13,16,49));
 
 }

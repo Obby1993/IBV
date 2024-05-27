@@ -1,5 +1,7 @@
-import React from 'react'
+import React from 'react';
 import Link from "next/link";
+import style from './navbar.module.css';
+import StyledLink from '../StyledLink'
 //pour avoir notre url
 import {usePathname} from "next/navigation";
 
@@ -29,11 +31,11 @@ export default function navbar({}: Navbar) {
   ]
 
   return (
-    <div className="navbar bg-base-100">
+    <div className={style.bg}>
       <div>
         <Link href="/">
             {/* <a className="btn btn-ghost normal-case text-xl"> */}
-              <img src="/images/logo_ibv.png" alt="logo" className="h-10" />
+              <img src="/images/logo_ibv.png" alt="logo" className={style.img} />
             {/* </a> */}
           </Link>
       </div>
@@ -41,9 +43,10 @@ export default function navbar({}: Navbar) {
         <ul className="menu menu-horizontal p-0">
         {navItems.map((link, index) => (
           <li key={index}>
-            <Link href={link.href}>
-              <button className="btn btn-ghost text-xl">{link.label}</button>
-            </Link>
+            <StyledLink href={link.href}>{link.label} </StyledLink>
+            {/* <Link href={link.href}>
+              <button className="btn btn-ghost text-xl text-white">{link.label}</button>
+            </Link> */}
           </li>
           ))}
         </ul>
