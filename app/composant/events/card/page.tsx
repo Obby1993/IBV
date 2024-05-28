@@ -1,15 +1,23 @@
 import React from "react";
+import  {Event}  from '../../../types';
+import  StyledLink from "../../StyledLink";
 
-type Props = {};
-export default function Card() {
+
+type CardProps = {
+  event: Event;
+};
+
+export default function Card({event}:CardProps) {
   return (
     <div className="card card-compact w-96 bg-base-100 shadow-xl">
   <figure><img src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Shoes" /></figure>
   <div className="card-body">
-    <h2 className="card-title">Shoes!</h2>
-    <p>If a dog chews shoes whose shoes does he choose?</p>
+    <h2 className="card-title">{event.name}</h2>
+    <h2> {new Date(event.dateStart).toLocaleDateString()}-{new Date(event.dateEnd).toLocaleDateString()}</h2>
+    <p>{event.description} - {event.autre}</p>
+    <p> {event.id}</p>
     <div className="card-actions justify-end">
-      <button className="btn btn-primary">Buy Now</button>
+    <StyledLink href={`/events/${event.id}`}>Voir événement </StyledLink>
     </div>
   </div>
 </div>

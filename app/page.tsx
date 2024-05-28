@@ -4,6 +4,7 @@ import Event from "./composant/events/page";
 import Coachs from "./composant/coachs/page";
 import Footer from "./composant/footer/page";
 
+
 export default function Home() {
   return (
     <main >
