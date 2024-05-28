@@ -2,8 +2,6 @@
 "use client"
 import { useEffect, useState } from 'react';
 import React from "react";
-import Navbar from "../composant/navbar/navbar";
-import Footer from "../composant/footer/page";
 import Card from "../composant/events/card/page";
 import  {Event} from "../types";
 import style from "./indexEvent.module.css"
@@ -23,8 +21,6 @@ export default function Events()  {
 
 
   return (
-    <div>
-      <Navbar />
       <div className={style.contener}>
         <h1 className='titre'>Nos événements</h1>
         <ul className='flex justify-around align-middle p-5'>
@@ -37,7 +33,6 @@ export default function Events()  {
           ))}
         </ul>
       </div>
-      <Footer />
-    </div>
+    // </div>
   );
 };

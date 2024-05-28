@@ -14,7 +14,7 @@ export interface Event {
   numberPlaceMen: number;
   numberPlaceWomen: number;
   autre: string;
-  players: any;
+  players: { [key: string]: boolean };
 }
 
 // Ajoutez d'autres types ici

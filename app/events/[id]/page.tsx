@@ -1,8 +1,10 @@
 "use client"
 import { Event } from "../../types";
 import CardShow from "../../composant/events/cardShow/page";
-import { useState } from 'react';
-import axios from 'axios';
+import { useState, useEffect } from 'react';
+import style from "../indexEvent.module.css";
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 //Récupération des données de l'événement
 async function fetchEvent(id: string): Promise<Event> {
@@ -26,56 +28,103 @@ interface EventPageProps {
 }
 
 
+
+
+
 //Mise en place du btn DELETE
 
 
 
-export default async function EventPage({ params }: EventPageProps) {
+export default function EventPage({ params }: EventPageProps) {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const [successMessage, setSuccessMessage] = useState(null);
-  const event = await fetchEvent(params.id);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [event, setEvent] = useState<Event | null>(null);
+
+  useEffect(() => {
+    // Charger l'événement lors du montage du composant
+    const loadEvent = async () => {
+      setIsLoading(true);
+      setError("");
+      setSuccessMessage("");
+
+      try {
+        const eventData = await fetchEvent(params.id);
+        setEvent(eventData); // Mettre à jour l'état avec les données de l'événement
+      } catch (error) {
+        console.error('Error fetching event:', error);
+        setError('Failed to fetch event data');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadEvent(); // Appeler la fonction de chargement de l'événement
+  }, [params.id]);
+
+
+
 
   const handleDeleteEvent = async () => {
     setIsLoading(true);
     setError("");
-    setSuccessMessage(null);
+    setSuccessMessage("");
     const event = await fetchEvent(params.id);
     if (!event) {
       return <div>Loading...</div>;
     }
 
+    try {
+      const response = await fetch(`http://localhost:3000/api/events/${event.id}`,
+      {
+        method: 'DELETE',
+      });
+      const data = await response.json();
+      console.log('Deleted event:', data);
+      setSuccessMessage('Event deleted successfully');
 
-  // console.log(params);
+      // Redirect to the events page after successful deletion
+      router.push('http://localhost:3000/events');
+    } catch (error) {
+      console.error('Error deleting event:', error);
+      setError('Failed to delete event');
+    } finally {
+      setIsLoading(false);
+    }
 
-
-  try {
-    // Envoyer une requête DELETE à votre API
-    const response = await axios.delete(`/api/events/${params.id}`);
-    setSuccessMessage(response.data.message);
-  } catch (error) {
-    setError('Une erreur s\'est produite lors de la suppression de l\'événement.');
-  } finally {
-    setIsLoading(false);
-  }
   };
 
-  return (
-    <div>
-      <CardShow eventData={event}/>
-      <div>
-      {isLoading && <p>Suppression en cours...</p>}
-      {error && <p className="text-red-500">{error}</p>}
-      {successMessage && <p className="text-green-500">{successMessage}</p>}
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
-      <button
-        onClick={handleDeleteEvent}
-        className="btn btn-red"
-        disabled={isLoading}
-      >
-        Supprimer l'événement
-      </button>
-    </div>
-    </div>
-  );
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  if (!event) {
+    return <div>No event data available</div>;
+  }
+
+
+    return (
+  <   div className={style.contener }  >
+        <CardShow eventData={event}/>
+        <div className="flex justify-evenly">
+          {isLoading && <p>Suppression en cours...</p>}
+          {error && <p className="text-red-500">{error}</p>}
+          {successMessage && <p className="text-green-500">{successMessage}</p>}
+
+          <button
+            onClick={handleDeleteEvent}
+            className="btn btn-outline btn-warning font-emoji m-10 text-xl"
+            disabled={isLoading}>
+            Supprimer l'événement
+          </button>
+          <Link href={`/events/update/${event.id}`} className="btn btn-outline btn-warning font-emoji m-10 text-xl">Modifier l'événement</Link>
+        </div>
+      </div>
+    );
+
 }

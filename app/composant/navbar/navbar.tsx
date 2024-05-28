@@ -1,3 +1,4 @@
+"use client"
 import React from 'react';
 import Link from "next/link";
 import style from './navbar.module.css';
@@ -25,9 +26,15 @@ export default function navbar({}: Navbar) {
       href: "/"
     },
     {
+      label: "Stages",
+      href: "/events"
+    },
+    {
       label: "Créer un stage",
       href: "/events/create"
-    }
+    },
+
+
   ]
 
   return (
