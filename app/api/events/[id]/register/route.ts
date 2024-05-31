@@ -22,20 +22,27 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
   try {
     const event = await prisma.event.findUnique({
       where: { id },
+      include: { players: true },
     });
 // si tu ne trouve pas l'event
     if (!event) {
       return NextResponse.json({ error: 'Event not found' }, { status: 404 });
     }
 
-    const players: Player[] = Array.isArray(event.players) ? event.players as Player[] : [];
+    // const players: Player[] = Array.isArray(event.players) ? event.players as Player[] : [];
 
     const newPlayer: Player = { name, paiement: false, niveau, genre };
-    const updatedPlayers = [...players, newPlayer];
+    // const updatedPlayers = [...players, newPlayer];
 
     const updatedEvent = await prisma.event.update({
       where: { id },
-      data: { players: updatedPlayers },
+      data: { players: {
+        create: newPlayer,
+        },
+      },
+      include: {
+        players: true,
+      },
     });
 
     return NextResponse.json(updatedEvent, { status: 200 });

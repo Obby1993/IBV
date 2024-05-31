@@ -18,6 +18,9 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
   try {
     const event = await prisma.event.findUnique({
       where: { id: id },
+      include: {
+        players: true, // Inclure les joueurs associés à chaque événement
+      },
     });
 
     if (!event) {
@@ -56,8 +59,15 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
         numberPlaceMen: Number(numberPlaceMen),
         numberPlaceWomen: Number(numberPlaceWomen),
         autre,
-        players
-      },
+        players: {
+          create: players.map((player: any) => ({
+            name: player.name,
+            paiement: player.paiement,
+            niveau: player.niveau,
+            genre: player.genre,
+          })),
+        }
+      }
     });
     console.log('Updated event:', updatedEvent);
     return NextResponse.json(updatedEvent, { status: 200 });
@@ -73,6 +83,9 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
 export async function DELETE(request: Request, { params }: { params: { id: string } }) {
   const { id } = params;
   try {
+    const deletePlayers = await prisma.player.deleteMany({
+
+    })
     const deletedEvent = await prisma.event.delete({
       where: { id: id },
     });

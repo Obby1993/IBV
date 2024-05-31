@@ -14,9 +14,16 @@ export interface Event {
   numberPlaceMen: number;
   numberPlaceWomen: number;
   autre: string;
-  players: { [key: string]: boolean };
+  players: Player[];
 }
-
+type Player = {
+  id: string;
+  name: string;
+  paiement: boolean;
+  niveau: string;
+  genre: string;
+  eventId: string;
+};
 // Ajoutez d'autres types ici
 export interface User {
   id: string;
