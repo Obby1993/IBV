@@ -23,18 +23,25 @@ model Event {
   numberPlaceMen     Int
   numberPlaceWomen   Int
   autre              String
-  players            Json
+  players            Player[]
 }
-
-model User {
-  id      String   @id @default(auto()) @map("_id") @db.ObjectId
-  email   String   @unique
-  name    String?
+model Player {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  paiement  Boolean
+  niveau    String
+  genre     String
+  eventId   String @db.ObjectId
+  event     Event  @relation(fields: [eventId], references: [id])
 }
-
 type Address {
   street String
   city   String
   state  String
   zip    String
+}
+model User {
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  email   String   @unique
+  name    String?
 }

@@ -16,6 +16,14 @@ export default function Card({event}:CardProps) {
     <h2> {new Date(event.dateStart).toLocaleDateString()}-{new Date(event.dateEnd).toLocaleDateString()}</h2>
     <p>{event.description} - {event.autre}</p>
     <p> {event.id}</p>
+    <h4>Joueurs:</h4>
+              <ul>
+                {event.players.map(player => (
+                  <li key={player.id}>
+                    {player.name}
+                  </li>
+                ))}
+              </ul>
     <div className="card-actions justify-end">
     <StyledLink href={`/events/${event.id}`}>Voir événement </StyledLink>
     </div>

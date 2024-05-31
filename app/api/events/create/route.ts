@@ -3,28 +3,49 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-
 export async function POST(req: NextRequest) {
   try {
-    const { name, dateStart, dateEnd, location, description, numberPlaceMen, numberPlaceWomen, autre, players } = await req.json();
+    const bodyText = await req.text();
+    console.log('Received body:', bodyText);
+
+    if (!bodyText) {
+      return NextResponse.json({ error: 'Request body is empty' }, { status: 400 });
+    }
+
+    const { name, dateStart, dateEnd, location, description, numberPlaceMen, numberPlaceWomen, autre, players } = JSON.parse(bodyText);
+    console.log('Parsed data:', { name, dateStart, dateEnd, location, description, numberPlaceMen, numberPlaceWomen, autre, players });
+
     const newEvent = await prisma.event.create({
       data: {
         name,
         dateStart: new Date(dateStart),
         dateEnd: new Date(dateEnd),
-        location : {
+        location: {
           street: location.street,
           city: location.city,
           state: location.state,
-          zip: location.zip
+          zip: location.zip,
         },
         description,
         numberPlaceMen,
         numberPlaceWomen,
         autre,
-        players,
+        players: {
+          create: players.map((player: any) => ({
+            name: player.name,
+            paiement: player.paiement,
+            niveau: player.niveau,
+            genre: player.genre,
+          })),
+        },
+      },
+      include: {
+        players: true,
       },
     });
+
+    console.log('New event created:', newEvent);
+
     return NextResponse.json(newEvent, { status: 201 });
   } catch (error) {
     console.error('Error creating event:', error);
