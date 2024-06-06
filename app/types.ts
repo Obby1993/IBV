@@ -16,7 +16,7 @@ export interface Event {
   autre: string;
   players: Player[];
 }
-type Player = {
+export type Player = {
   id: string;
   name: string;
   paiement: boolean;
