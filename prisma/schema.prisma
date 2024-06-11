@@ -24,6 +24,7 @@ model Event {
   numberPlaceWomen   Int
   autre              String
   players            Player[]
+  imageUrl           String?
 }
 model Player {
   id        String  @id @default(auto()) @map("_id") @db.ObjectId

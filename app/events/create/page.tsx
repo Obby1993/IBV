@@ -15,6 +15,7 @@ export default function Page({}: Props) {
   const [numberPlaceWomen, setNumberPlaceWomen] = useState(0);
   const [autre, setAutre] = useState('');
   const [players, setPlayers] = useState('');
+  const [imageUrl, setImg] = useState('');
   const router = useRouter()
 
   const handleLocationChange = (field: keyof typeof location, value: string) => {
@@ -22,6 +23,17 @@ export default function Page({}: Props) {
       ...prevLocation,
       [field]: value,
     }));
+  };
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const imageDataUrl = reader.result as string;
+        setImg(imageDataUrl);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const addEvent = async () => {
@@ -40,6 +52,7 @@ export default function Page({}: Props) {
           numberPlaceMen,
           numberPlaceWomen,
           autre,
+          imageUrl,
           players: players ? JSON.parse(players) : [],
         }),
       });
@@ -77,6 +90,9 @@ export default function Page({}: Props) {
         <input type="number" placeholder="Number of Places for Women" className="input input-bordered input-info w-full max-w-xs mb-4" value={numberPlaceWomen} onChange={(e) => setNumberPlaceWomen(parseInt(e.target.value))} />
         <textarea placeholder="Autre" className="textarea textarea-info" value={autre} onChange={(e) => setAutre(e.target.value)} />
         <textarea placeholder="Players (JSON format)" value={players} onChange={(e) => setPlayers(e.target.value)} />
+        <label htmlFor="file" className="block textBlue">Importer une image:</label>
+        <input type="file" accept="image/*" className="file-input w-full max-w-xs" onChange={handleImageChange} />
+        {imageUrl && <img src={imageUrl} alt="Event" className="w-32 h-32 mt-2" />} {/* Afficher l'aperçu de l'image si elle est disponible */}
         <button className="btn btn-outline btn-warning font-emoji mr-6" onClick={addEvent}>Ajouter événement</button>
       </div>
     </div>

@@ -15,6 +15,7 @@ export interface Event {
   numberPlaceWomen: number;
   autre: string;
   players: Player[];
+  imageUrl: string
 }
 export type Player = {
   id: string;
