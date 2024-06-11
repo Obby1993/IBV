@@ -26,8 +26,6 @@ export default function Events()  {
         <ul className='flex justify-around align-middle p-5'>
           {events.map(event => (
             <li key={event.id}>
-              {/* {event.name}  - {event.location?.street} - {event.description} */}
-
               <Card event={event}/>
             </li>
           ))}

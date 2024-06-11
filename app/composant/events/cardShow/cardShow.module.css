@@ -13,7 +13,8 @@
   border-color:rgb(255,190,0);
   background-color: rgb(13,16,49);
   color:rgb(255,190,0);
-  font-weight: bold
+  font-weight: bold;
+  width: auto
 }
 
 .disponibilite {

@@ -12,8 +12,11 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Request body is empty' }, { status: 400 });
     }
 
-    const { name, dateStart, dateEnd, location, description, numberPlaceMen, numberPlaceWomen, autre, players } = JSON.parse(bodyText);
-    console.log('Parsed data:', { name, dateStart, dateEnd, location, description, numberPlaceMen, numberPlaceWomen, autre, players });
+    const { name, dateStart, dateEnd, location, description, numberPlaceMen, numberPlaceWomen, autre, players, imageUrl } = JSON.parse(bodyText);
+    console.log('Parsed data:', { name, dateStart, dateEnd, location, description, numberPlaceMen, numberPlaceWomen, autre, players, imageUrl });
+
+    const defaultImageUrl = '/images/banner_img.jpg';
+
 
     const newEvent = await prisma.event.create({
       data: {
@@ -27,6 +30,7 @@ export async function POST(req: NextRequest) {
           zip: location.zip,
         },
         description,
+        imageUrl: imageUrl || defaultImageUrl,
         numberPlaceMen,
         numberPlaceWomen,
         autre,

@@ -38,12 +38,12 @@ export default function cardShow({eventData} : CardShow) {
     <div className="card bg-base-100 shadow-xl ">
       {/* <div className="bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url(${eventData.imageUrl})` }}> */}
       <div className="card-body p-0">
-        <div className="rounded-tr-md rounded-tl-md bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/images/banner_img.jpg')`, height:`300px` }}>
+        <div className="rounded-tr-md rounded-tl-md bg-cover bg-no-repeat " style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(${eventData.imageUrl})`, height:`500px` }}>
           <div className='flex items-center justify-around p-5'>
             <h2 className="titre">{eventData.name}</h2>
             <h2 className={style.dateStage}>{new Date(eventData.dateStart).toLocaleDateString()} - {new Date(eventData.dateEnd).toLocaleDateString()}</h2>
           </div>
-          <div className="card-actions justify-center mt-20">
+          <div className="card-actions justify-center  mt-64" >
             <Link href={`/events/${eventData.id}/register`} className="btn btn-warning font-emoji content-center text-xl p-5 border-blue-900 text-blue-900" >Je m'inscris !</Link>
           </div>
         </div>

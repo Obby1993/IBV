@@ -84,6 +84,9 @@ export async function DELETE(request: Request, { params }: { params: { id: strin
   const { id } = params;
   try {
     const deletePlayers = await prisma.player.deleteMany({
+      where: {
+        eventId: id // Supprime tous les joueurs liés à l'événement spécifié par son ID
+      }
 
     })
     const deletedEvent = await prisma.event.delete({
