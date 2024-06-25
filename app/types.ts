@@ -13,17 +13,21 @@ export interface Event {
   description: string;
   numberPlaceMen: number;
   numberPlaceWomen: number;
+  price: number;
+  stripePriceId : string;
+  stripeProductId: string;
   autre: string;
   players: Player[];
   imageUrl: string
 }
 export type Player = {
-  id: string;
   name: string;
+  id: string;
   paiement: boolean;
   niveau: string;
   genre: string;
   eventId: string;
+  email: string;
 };
 // Ajoutez d'autres types ici
 export interface User {

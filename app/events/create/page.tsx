@@ -16,6 +16,7 @@ export default function Page({}: Props) {
   const [autre, setAutre] = useState('');
   const [players, setPlayers] = useState('');
   const [imageUrl, setImg] = useState('');
+  const [price, setPrice] = useState(0);
   const router = useRouter()
 
   const handleLocationChange = (field: keyof typeof location, value: string) => {
@@ -36,6 +37,7 @@ export default function Page({}: Props) {
     }
   };
 
+
   const addEvent = async () => {
     try {
       const response = await fetch('/api/events/create', {
@@ -53,6 +55,7 @@ export default function Page({}: Props) {
           numberPlaceWomen,
           autre,
           imageUrl,
+          price,
           players: players ? JSON.parse(players) : [],
         }),
       });
@@ -75,19 +78,30 @@ export default function Page({}: Props) {
       <div className='flex flex-col items-center'>
         <label htmlFor="text" className="block textBlue">Nom de l'événement:</label>
         <input type="text" placeholder="Name" className="input input-bordered input-info w-full max-w-xs mb-4 text-left" value={name} onChange={(e) => setName(e.target.value)} />
+
         <label htmlFor="text" className="block textBlue">Date du début:</label>
         <input type="date" placeholder="Start Date" className="input input-bordered input-info w-full max-w-xs mb-4" value={dateStart} onChange={(e) => setDateStart(e.target.value)} />
+
         <label htmlFor="text" className="block textBlue">Date de fin:</label>
         <input type="date" placeholder="End Date" className="input input-bordered input-info w-full max-w-xs mb-4" value={dateEnd} onChange={(e) => setDateEnd(e.target.value)} />
+
+        <label htmlFor="text" className="block textBlue">Lieu:</label>
         <input type="text" placeholder="Street" className="input input-bordered input-info w-full max-w-xs m-4" value={location.street} onChange={(e) => handleLocationChange('street', e.target.value)} />
         <input type="text" placeholder="City" className="input input-bordered input-info w-full max-w-xs m-4" value={location.city} onChange={(e) => handleLocationChange('city', e.target.value)} />
         <input type="text" placeholder="State" className="input input-bordered input-info w-full max-w-xs m-4" value={location.state} onChange={(e) => handleLocationChange('state', e.target.value)} />
         <input type="text" placeholder="Zip" className="input input-bordered input-info w-full max-w-xs m-4" value={location.zip} onChange={(e) => handleLocationChange('zip', e.target.value)} />
+
+        <label htmlFor="text" className="block textBlue">Description:</label>
         <textarea className="textarea textarea-info mb-4" placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)} />
+
         <label htmlFor="number" className="block textBlue">Nombre de joueurs masculins:</label>
         <input type="number" placeholder="Number of Places for Men" className="input input-bordered input-info w-full max-w-xs mb-4" value={numberPlaceMen} onChange={(e) => setNumberPlaceMen(parseInt(e.target.value))} />
         <label htmlFor="number" className="block textBlue">Nombre de joueurs féminins:</label>
         <input type="number" placeholder="Number of Places for Women" className="input input-bordered input-info w-full max-w-xs mb-4" value={numberPlaceWomen} onChange={(e) => setNumberPlaceWomen(parseInt(e.target.value))} />
+
+        <label htmlFor="text" className="block textBlue">Prix/joueur:</label>
+        <input type="number" placeholder="Prix" className="input input-bordered input-info w-full max-w-xs mb-4" value={price} onChange={(e) => setPrice(parseInt(e.target.value))}/>
+
         <textarea placeholder="Autre" className="textarea textarea-info" value={autre} onChange={(e) => setAutre(e.target.value)} />
         <textarea placeholder="Players (JSON format)" value={players} onChange={(e) => setPlayers(e.target.value)} />
         <label htmlFor="file" className="block textBlue">Importer une image:</label>

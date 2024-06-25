@@ -4,7 +4,18 @@ import CardShow from "../../composant/events/cardShow/page";
 import { useState, useEffect } from 'react';
 import style from "../indexEvent.module.css";
 import { useRouter } from 'next/navigation';
+import Modal from '../../composant/modal/page'; // Assurez-vous d'ajuster le chemin selon votre structure de fichiers
 import Link from 'next/link';
+
+
+interface EventPageProps {
+  params: {
+    id: string;
+  };
+}
+
+
+
 
 //Récupération des données de l'événement
 async function fetchEvent(id: string): Promise<Event> {
@@ -21,17 +32,13 @@ async function fetchEvent(id: string): Promise<Event> {
   return data;
 }
 
-interface EventPageProps {
-  params: {
-    id: string;
-  };
-}
 
 
 
 
 
-//Mise en place du btn DELETE
+
+
 
 
 
@@ -41,6 +48,8 @@ export default function EventPage({ params }: EventPageProps) {
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [event, setEvent] = useState<Event | null>(null);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [success, setSuccess] = useState(false)
 
   useEffect(() => {
     // Charger l'événement lors du montage du composant
@@ -95,6 +104,26 @@ export default function EventPage({ params }: EventPageProps) {
 
   };
 
+  useEffect(() => {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('success')) {
+        setSuccess(true)
+        setModalIsOpen(true);
+      }else if (params.get('cancel')){
+        setSuccess(false)
+        setModalIsOpen(true);
+      }
+  }, []);
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+    // supprimer le paramètre "success" de l'URL après la fermeture de la modal
+    const url = `/events/${params.id}`;
+    router.replace(url);
+  };
+
+
+  //faire patienter
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -106,6 +135,9 @@ export default function EventPage({ params }: EventPageProps) {
   if (!event) {
     return <div>No event data available</div>;
   }
+
+
+
 
 
     return (
@@ -124,6 +156,7 @@ export default function EventPage({ params }: EventPageProps) {
           </button>
           <Link href={`/events/update/${event.id}`} className="btn btn-outline btn-warning font-emoji m-10 text-xl">Modifier l'événement</Link>
         </div>
+        <Modal isOpen={modalIsOpen} onClose={closeModal} eventData={event} success={success} />
       </div>
     );
 
