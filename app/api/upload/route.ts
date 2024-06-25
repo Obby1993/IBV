@@ -1,8 +1,6 @@
 
 import { Options } from 'multer-storage-cloudinary';
 
-
-
 import { NextApiRequest, NextApiResponse } from 'next';
 import multer from 'multer';
 import cloudinary from '../../../lib/cloudinary';
@@ -40,3 +38,5 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
   });
 }
+
+export {};

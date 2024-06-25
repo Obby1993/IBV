@@ -22,13 +22,17 @@ model Event {
   description        String
   numberPlaceMen     Int
   numberPlaceWomen   Int
-  autre              String
+  autre              String?
   players            Player[]
   imageUrl           String?
+  price              Int
+  stripeProductId    String?
+  stripePriceId      String?
 }
 model Player {
   id        String  @id @default(auto()) @map("_id") @db.ObjectId
   name      String
+  email     String?
   paiement  Boolean
   niveau    String
   genre     String
