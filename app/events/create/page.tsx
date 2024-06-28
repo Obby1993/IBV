@@ -104,9 +104,11 @@ export default function Page({}: Props) {
 
         <textarea placeholder="Autre" className="textarea textarea-info" value={autre} onChange={(e) => setAutre(e.target.value)} />
         <textarea placeholder="Players (JSON format)" value={players} onChange={(e) => setPlayers(e.target.value)} />
+
         <label htmlFor="file" className="block textBlue">Importer une image:</label>
         <input type="file" accept="image/*" className="file-input w-full max-w-xs" onChange={handleImageChange} />
         {imageUrl && <img src={imageUrl} alt="Event" className="w-32 h-32 mt-2" />} {/* Afficher l'aperçu de l'image si elle est disponible */}
+
         <button className="btn btn-outline btn-warning font-emoji mr-6" onClick={addEvent}>Ajouter événement</button>
       </div>
     </div>
