@@ -3,8 +3,10 @@ import  {Event}  from '../../../types';
 import  StyledLink from "../../StyledLink";
 import style from "../cardShow/cardShow.module.css"
 
+
 type CardProps = {
   event: Event;
+
 };
 
 export default function Card({event}:CardProps) {

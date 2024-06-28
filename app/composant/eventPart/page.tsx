@@ -4,9 +4,10 @@ import {useEffect, useState} from "react";
 import Card from "./card/page"
 import style from "./events.module.css"
 import  {Event}  from '../../types';
+
 type Props = {};
 
-export default function Events({}: Props) {
+export default function EventPart() {
   const [events, setEvents] = useState<Event[]>([]);
   useEffect(() => {
     fetch('/api/events')

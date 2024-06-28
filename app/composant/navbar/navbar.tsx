@@ -5,6 +5,8 @@ import style from './navbar.module.css';
 import StyledLink from '../StyledLink'
 //pour avoir notre url
 import {usePathname} from "next/navigation";
+import SignOutButton from "../SignOutButton/page";
+import { useSession } from "next-auth/react";
 
 type Navbar = {
 
@@ -12,8 +14,8 @@ type Navbar = {
   href?: string
 }
 
-export default function navbar({}: Navbar) {
-
+export default function navbar() {
+  const { data: session } = useSession()
   //creons une variable de l'url
   const  pathName = usePathname()
   //maintenant en comparant exemple:    className = {pathName === ${link.href} ? " text-blue-50": ""} mais seulement dans mes composants clients
@@ -29,20 +31,17 @@ export default function navbar({}: Navbar) {
       label: "Stages",
       href: "/events"
     },
-    {
-      label: "Créer un stage",
-      href: "/events/create"
-    },
+
 
 
   ]
 
   return (
     <div className={style.bg}>
-      <div>
-        <Link href="/">
+      <div className='pr-10'>
+        <Link href="/" >
             {/* <a className="btn btn-ghost normal-case text-xl"> */}
-              <img src="/images/logo_ibv.png" alt="logo" className={style.img} />
+              <img  src="/images/logo_ibv.png" alt="logo" className={style.img} />
             {/* </a> */}
           </Link>
       </div>
@@ -51,11 +50,13 @@ export default function navbar({}: Navbar) {
         {navItems.map((link, index) => (
           <li key={index}>
             <StyledLink href={link.href}>{link.label} </StyledLink>
-            {/* <Link href={link.href}>
-              <button className="btn btn-ghost text-xl text-white">{link.label}</button>
-            </Link> */}
           </li>
           ))}
+          {session ? <>(<li><StyledLink href={'/events/create'}>Créer un stage </StyledLink></li>
+                      <li className='pt-2'><SignOutButton /></li>
+                      <li className='titreCard mt-5'>{session.user?.name} est connecté. </li>)</>
+            :        (<li><StyledLink href={"/login"}> Connexion</StyledLink></li>)}
+
         </ul>
      </div>
     </div>
