@@ -1,7 +1,5 @@
-
 import { Options } from 'multer-storage-cloudinary';
-
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextRequest, NextResponse } from 'next/server';
 import multer from 'multer';
 import cloudinary from '../../../lib/cloudinary';
 import { CloudinaryStorage } from 'multer-storage-cloudinary';
@@ -15,7 +13,10 @@ const storage = new CloudinaryStorage({
 });
 
 const upload = multer({ storage: storage });
-export const runtime = 'nodejs';
+
+// Nouveau format pour la configuration de l'API
+export const runtime = 'nodejs'; // Choisissez 'edge' ou 'nodejs' selon vos besoins
+
 export const config = {
   api: {
     bodyParser: false,
@@ -24,19 +25,19 @@ export const config = {
 
 const uploadMiddleware = upload.single('file');
 
-export default async function POST(req: NextApiRequest, res: NextApiResponse) {
-  return new Promise<void>((resolve, reject) => {
-    uploadMiddleware(req as unknown as Request, res as unknown as Response, (err: any) => {
+export async function POST(req: NextRequest) {
+  return new Promise<NextResponse>((resolve, reject) => {
+    uploadMiddleware(req as unknown as Request, {} as Response, (err: any) => {
       if (err) {
-        return reject(new Error('Erreur lors du téléchargement de l\'image'));
+        reject(new Error('Erreur lors du téléchargement de l\'image'));
+        return resolve(NextResponse.json({ error: 'Erreur lors du téléchargement de l\'image' }, { status: 500 }));
       }
-      const { file } = (req as any);
+      const { file } = req as any;
       if (!file) {
-        return reject(new Error('Aucun fichier téléchargé'));
+        reject(new Error('Aucun fichier téléchargé'));
+        return resolve(NextResponse.json({ error: 'Aucun fichier téléchargé' }, { status: 400 }));
       }
-      resolve(res.status(200).json({ url: file.path }));
+      resolve(NextResponse.json({ url: file.path }));
     });
   });
 }
-
-export {};
