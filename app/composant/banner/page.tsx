@@ -1,10 +1,14 @@
 import React from "react";
 import styles from "./banner.module.css";
 import StyledLink from '../StyledLink';
+import SignOutButton from "../SignOutButton/page";
+import { SessionProps } from "@/app/types";
 
-type Props = {};
 
-export default function Banner({}: Props) {
+export default  async function Banner({session}:SessionProps) {
+
+
+
   return (<div className={styles.contenaire}>
     <div >
       <h1 className="titre">Imagine Beach Volley</h1>
@@ -12,6 +16,9 @@ export default function Banner({}: Props) {
       <p className={styles.textBanner}>Nous organisons des stages intensifs de Beach Volley en France et à l'étranger !</p>
       <StyledLink href={"/events"}>Les Stages  IBV </StyledLink>
       <StyledLink href={"#section2"}>Les  Coachs </StyledLink>
+      {session ? (<SignOutButton />)
+      :
+      (<StyledLink href={"/login"}> Connexion</StyledLink>)}
       </div>
     </div>
       <img src="/images/logo_ibv.png" alt="logo"/>

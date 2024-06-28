@@ -1,4 +1,6 @@
 // types.ts
+import { Session } from "next-auth";
+
 export interface Event {
   id: string;
   name: string;
@@ -35,4 +37,8 @@ export interface User {
   name: string;
   email: string;
   // autres propriétés
+}
+
+export interface SessionProps {
+  session: Session | null;
 }

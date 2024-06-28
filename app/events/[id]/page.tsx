@@ -1,12 +1,13 @@
 "use client"
 import { Event } from "../../types";
-import CardShow from "../../composant/events/cardShow/page";
+import CardShow from "../../composant/eventPart/cardShow/page";
 import { useState, useEffect } from 'react';
 import style from "../indexEvent.module.css";
 import { useRouter } from 'next/navigation';
 import Modal from '../../composant/modal/page'; // Assurez-vous d'ajuster le chemin selon votre structure de fichiers
 import Link from 'next/link';
-
+import { useSession } from "next-auth/react";
+import Footer from "@/app/composant/footer/page";
 
 interface EventPageProps {
   params: {
@@ -50,7 +51,7 @@ export default function EventPage({ params }: EventPageProps) {
   const [event, setEvent] = useState<Event | null>(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [success, setSuccess] = useState(false)
-
+  const { data: session } = useSession()
   useEffect(() => {
     // Charger l'événement lors du montage du composant
     const loadEvent = async () => {
@@ -143,21 +144,23 @@ export default function EventPage({ params }: EventPageProps) {
     return (
   <   div className={style.contener }  >
         <CardShow eventData={event}/>
-        <div className="flex justify-evenly">
-          {isLoading && <p>Suppression en cours...</p>}
-          {error && <p className="text-red-500">{error}</p>}
-          {successMessage && <p className="text-green-500">{successMessage}</p>}
+        {session ?(
+          <div className="flex justify-evenly ">
+            {isLoading && <p>Suppression en cours...</p>}
+            {error && <p className="text-red-500">{error}</p>}
+            {successMessage && <p className="text-green-500">{successMessage}</p>}
 
-          <button
-            onClick={handleDeleteEvent}
-            className="btn btn-outline btn-warning font-emoji m-10 text-xl"
-            disabled={isLoading}>
-            Supprimer l'événement
-          </button>
-          <Link href={`/events/update/${event.id}`} className="btn btn-outline btn-warning font-emoji m-10 text-xl">Modifier l'événement</Link>
-        </div>
+            <button
+              onClick={handleDeleteEvent} className="btn btn-outline btn-warning font-emoji m-10 text-xl" disabled={isLoading}> Supprimer l'événement
+            </button>
+            <Link href={`/events/update/${event.id}`} className="btn btn-outline btn-warning font-emoji m-10 text-xl">Modifier l'événement</Link>
+          </div>
+        ):null}
+
         <Modal isOpen={modalIsOpen} onClose={closeModal} eventData={event} success={success} />
       </div>
-    );
 
+
+
+      )
 }
