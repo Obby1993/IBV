@@ -15,7 +15,7 @@ const storage = new CloudinaryStorage({
 });
 
 const upload = multer({ storage: storage });
-
+export const runtime = 'nodejs';
 export const config = {
   api: {
     bodyParser: false,
@@ -24,7 +24,7 @@ export const config = {
 
 const uploadMiddleware = upload.single('file');
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function POST(req: NextApiRequest, res: NextApiResponse) {
   return new Promise<void>((resolve, reject) => {
     uploadMiddleware(req as unknown as Request, res as unknown as Response, (err: any) => {
       if (err) {
