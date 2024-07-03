@@ -1,13 +1,15 @@
+"use client"
 import React from "react";
 import styles from "./banner.module.css";
 import StyledLink from '../StyledLink';
-import SignOutButton from "../SignOutButton/page";
-import { SessionProps } from "@/app/types";
+import SignOutButton from "../SignOutButton/SignOutBtn";
+import { useSession } from "next-auth/react";
 
 
-export default  async function Banner({session}:SessionProps) {
 
+export default function Banner ({  }) {
 
+  const { data: session } = useSession()
 
   return (<div className={styles.contenaire}>
     <div >

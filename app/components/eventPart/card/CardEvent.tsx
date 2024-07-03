@@ -4,7 +4,7 @@ import  StyledLink from "../../StyledLink";
 import style from "../cardShow/cardShow.module.css"
 
 
-type CardProps = {
+interface CardProps  {
   event: Event;
 
 };

@@ -2,7 +2,7 @@
 "use client"
 import { useEffect, useState } from 'react';
 import React from "react";
-import Card from "../composant/eventPart/card/page";
+import Card from "../components/eventPart/card/CardEvent";
 import  {Event} from "../types";
 import style from "./indexEvent.module.css"
 

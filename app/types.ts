@@ -1,5 +1,5 @@
 // types.ts
-import { Session } from "next-auth";
+// import { Session } from "next-auth";
 
 export interface Event {
   id: string;
@@ -39,6 +39,18 @@ export interface User {
   // autres propriétés
 }
 
-export interface SessionProps {
-  session: Session | null;
+// export interface SessionProps {
+//   session: Session | null;
+// };
+export interface Palmares {
+  year: number;
+  achievement: string;
+}
+
+export interface TypeCoachData {
+  id: number;
+  name: string;
+  picture: string;
+  palmares: Palmares[];
+  devise: string;
 }
