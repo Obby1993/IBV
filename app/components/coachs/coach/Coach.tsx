@@ -1,18 +1,16 @@
 import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMedal } from '@fortawesome/free-solid-svg-icons';
+import { TypeCoachData, Palmares } from "@/app/types";
 
 
 
-interface TypeCoachData {
-  id: number;
-  name: string;
-  picture: string;
-  palmares: { year: number; achievement: string; }[];
-  devise: string;
+
+interface CoachProps {
+  coachData: TypeCoachData;
 }
 
-export default function Coach({coachData}: { coachData: TypeCoachData }) {
+export default function Coach({coachData}: CoachProps) {
   return (
           <div>
             <h1 className="titre" >{coachData.name}</h1>

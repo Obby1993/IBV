@@ -17,11 +17,11 @@ const upload = multer({ storage: storage });
 // Nouveau format pour la configuration de l'API
 export const runtime = 'nodejs'; // Choisissez 'edge' ou 'nodejs' selon vos besoins
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
+// export const config = {
+//   api: {
+//     bodyParser: false,
+//   },
+// };
 
 const uploadMiddleware = upload.single('file');
 

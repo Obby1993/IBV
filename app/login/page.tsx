@@ -2,8 +2,8 @@
 import { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import Navbar from '../composant/navbar/navbar'
-import Footer from '../composant/footer/page'
+import Navbar from '../components/navbar/navbar'
+import Footer from '../components/footer/Footer'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');

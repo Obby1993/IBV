@@ -3,7 +3,7 @@ import { PrismaClient } from '@prisma/client';
 import  {Event} from "../../../types";
 import style from "./cardShow.module.css"
 import Link from 'next/link';
-import PlayerList from "./playersList/page";
+import PlayerList from "./playersList/PlayerList";
 
 const prisma = new PrismaClient();
 

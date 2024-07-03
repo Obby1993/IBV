@@ -1,13 +1,13 @@
 "use client"
 import { Event } from "../../types";
-import CardShow from "../../composant/eventPart/cardShow/page";
+import CardShow from "../../components/eventPart/cardShow/CardShowEvent";
 import { useState, useEffect } from 'react';
 import style from "../indexEvent.module.css";
 import { useRouter } from 'next/navigation';
-import Modal from '../../composant/modal/page'; // Assurez-vous d'ajuster le chemin selon votre structure de fichiers
+import Modal from '../../components/modal/Modal'; // Assurez-vous d'ajuster le chemin selon votre structure de fichiers
 import Link from 'next/link';
 import { useSession } from "next-auth/react";
-import Footer from "@/app/composant/footer/page";
+
 
 interface EventPageProps {
   params: {

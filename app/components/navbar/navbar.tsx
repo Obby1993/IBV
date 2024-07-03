@@ -5,7 +5,7 @@ import style from './navbar.module.css';
 import StyledLink from '../StyledLink'
 //pour avoir notre url
 import {usePathname} from "next/navigation";
-import SignOutButton from "../SignOutButton/page";
+import SignOutButton from "../SignOutButton/SignOutBtn";
 import { useSession } from "next-auth/react";
 
 type Navbar = {
