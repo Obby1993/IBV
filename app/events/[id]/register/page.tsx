@@ -18,23 +18,6 @@ export default function RegisterPage({ params }: { params: { id: string } }) {
     email: '',
   });
 
-  // useEffect(() => {
-  //   const fetchEventData = async () => {
-  //     try {
-  //       const res = await fetch(`/api/events/${id}`);
-  //       if (!res.ok) {
-  //         throw new Error('Failed to fetch event data');
-  //       }
-  //       const data = await res.json();
-  //       setEventData(data);
-  //     } catch (error) {
-  //       console.error('Error fetching event data:', error);
-  //     }
-  //   };
-  //   if (id) {
-  //     fetchEventData();
-  //   }
-  // }, [id]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -43,21 +26,6 @@ export default function RegisterPage({ params }: { params: { id: string } }) {
       [name]: value,
     }));
   };
-
-  // const redirectToCheckout = async ( sessionId: string) => {
-  //   const stripe = await stripePromise;
-  //   if (!stripe) {
-  //     throw new Error('Stripe library failed to load');
-  //   }
-
-  //   const { error } = await stripe.redirectToCheckout({
-  //     sessionId: sessionId,
-  //   });
-
-  //   if (error) {
-  //     console.error('Erreur de redirection vers la page de paiement :', error);
-  //   }
-  // };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -86,25 +54,12 @@ export default function RegisterPage({ params }: { params: { id: string } }) {
       await stripe.redirectToCheckout({
         sessionId,
       });
-      // Créer une session de paiement sur le backend
-      // const paymentRes = await fetch(`/api/events/register`, {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify({ eventId: id, playerId: formData.name }),
-      // });
 
-      // if (!paymentRes.ok) {
-      //   throw new Error('Failed to create payment session');
-      // }
       const updatedEvent = await res.json();
       console.log('Updated event:', updatedEvent);
       // const { sessionId } = await res.json();
 
-      // Rediriger vers la page de paiement
-      // const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY || '');
-      // await redirectToCheckout( sessionId);
+
     } catch (error) {
       console.error('Erreur lors du paiement ou de l\'inscription :', error);
     }
